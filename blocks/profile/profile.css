@@ -1,0 +1,6 @@
+.profile {
+    display: grid;
+    grid-template-columns: min-content 1fr min-content;
+    /*column-gap: 30px;*/
+    align-items: center;
+}

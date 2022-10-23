@@ -9,4 +9,10 @@
     border-radius: 2px;
     padding: 0;
     box-sizing: border-box;
+    cursor: pointer;
+}
+
+.profile__add-button:hover {
+    transition: opacity .5s;
+    opacity: .5;
 }

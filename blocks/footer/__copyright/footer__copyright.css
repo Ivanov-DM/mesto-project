@@ -6,3 +6,11 @@
     color: #545454;
     padding-bottom: 56px;
 }
+
+@media (max-width: 767px) {
+    .footer__copyright {
+        font-size: 14px;
+        line-height: 17px;
+        padding-bottom: 33px;
+    }
+}

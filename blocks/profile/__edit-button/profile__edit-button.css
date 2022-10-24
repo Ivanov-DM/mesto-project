@@ -9,9 +9,20 @@
     padding: 0;
     box-sizing: border-box;
     cursor: pointer;
+    display: inline-block;
+    grid-column: 2 / -1;
+    grid-row: 1;
 }
 
 .profile__edit-button:hover {
     transition: opacity .5s;
     opacity: .5;
+}
+
+@media (max-width: 767px) {
+    .profile__edit-button {
+        grid-column: 3 / -1;
+        width: 18px;
+        height: 18px;
+    }
 }

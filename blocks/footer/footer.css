@@ -3,3 +3,9 @@
     align-items: flex-end;
     min-height: 144px;
 }
+
+@media (max-width: 767px) {
+    .footer {
+        min-height: 98px;
+    }
+}

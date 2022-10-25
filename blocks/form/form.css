@@ -1,4 +1,4 @@
-.edit-profile-form {
+.form {
     min-width: 430px;
     background-color: #FFFFFF;
     border-radius: 10px;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 767px) {
-    .edit-profile-form {
+    .form {
         min-width: 282px;
         grid-column: 1 / -1;
         padding: 25px 22px;

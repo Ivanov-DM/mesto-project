@@ -1,4 +1,4 @@
-.edit-profile-form__submit-button {
+.form__submit-button {
     width: 100%;
     min-height: 50px;
     padding: 0;
@@ -13,12 +13,12 @@
     transition: opacity .5s;
 }
 
-.edit-profile-form__submit-button:hover {
+.form__submit-button:hover {
     opacity: .8;
 }
 
 @media (max-width: 767px) {
-    .edit-profile-form__submit-button {
+    .form__submit-button {
         min-height: 46px;
         font-size: 14px;
         line-height: 18px;

@@ -1,4 +1,4 @@
-.edit-profile-form__input-field {
+.form__input-field {
     font-family: inherit;
     font-size: 14px;
     font-weight: 400;
@@ -8,7 +8,7 @@
     padding-bottom: 8px;
 }
 
-.edit-profile-form__input-field:focus {
+.form__input-field:focus {
     outline: none;
     border-bottom: 1px solid #000000;
 }

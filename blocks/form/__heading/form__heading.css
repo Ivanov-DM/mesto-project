@@ -1,4 +1,4 @@
-.edit-profile-form__heading {
+.form__heading {
     font-size: 24px;
     font-weight: 900;
     line-height: 29px;
@@ -7,7 +7,7 @@
 }
 
 @media (max-width: 767px) {
-    .edit-profile-form__heading {
+    .form__heading {
         font-size: 18px;
         line-height: 22px;
         margin: 0 0 75px;

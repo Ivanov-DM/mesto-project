@@ -4,7 +4,7 @@
     background-image: url(../../../images/add-button.svg);
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #000000;
+    background-color: transparent;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
     padding: 0;
@@ -14,6 +14,7 @@
 }
 
 .profile__add-button:hover {
+    opacity: .6;
 }
 
 @media (max-width: 767px) {

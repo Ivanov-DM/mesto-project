@@ -3,14 +3,14 @@
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    background-color: #FFFFFF;
+    background-color: transparent;
     min-width: 22px;
     min-height: 19px;
     padding: 0;
     cursor: pointer;
+    transition: opacity .5s;
 }
 
 .element__like-button:hover {
-    transition: opacity .5s;
     opacity: .5;
 }

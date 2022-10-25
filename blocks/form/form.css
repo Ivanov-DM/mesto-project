@@ -1,6 +1,5 @@
 .edit-profile-form {
     min-width: 430px;
-    min-height: 330px;
     background-color: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0 0 25px rgba(0, 0, 0, .15);
@@ -12,7 +11,6 @@
 @media (max-width: 767px) {
     .edit-profile-form {
         min-width: 282px;
-        min-height: 322px;
         grid-column: 1 / -1;
         padding: 25px 22px;
     }

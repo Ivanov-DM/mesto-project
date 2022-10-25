@@ -4,17 +4,17 @@
     background-image: url(../../../images/edit-button.svg);
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #000000;
+    background-color: transparent;
     border: 1px solid #FFFFFF;
     padding: 0;
     box-sizing: border-box;
     cursor: pointer;
     grid-column: 2 / -1;
     grid-row: 1;
+    transition: opacity .5s;
 }
 
 .profile__edit-button:hover {
-    transition: opacity .5s;
     opacity: .6;
 }
 
@@ -23,5 +23,6 @@
         grid-column: 3 / -1;
         width: 18px;
         height: 18px;
+        background-size: 8px 8px;
     }
 }

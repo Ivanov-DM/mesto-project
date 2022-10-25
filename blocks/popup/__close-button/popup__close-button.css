@@ -9,10 +9,10 @@
     padding: 0;
     cursor: pointer;
     grid-column: 3 / -1;
+    transition: opacity .5s;
 }
 
 .popup__close-button:hover {
-    transition: opacity .5s;
     opacity: .6;
 }
 

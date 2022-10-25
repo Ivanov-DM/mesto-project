@@ -10,10 +10,10 @@
     border-radius: 2px;
     margin-top: 48px;
     cursor: pointer;
+    transition: opacity .5s;
 }
 
 .edit-profile-form__submit-button:hover {
-    transition: opacity .5s;
     opacity: .8;
 }
 

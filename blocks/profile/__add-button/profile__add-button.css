@@ -10,11 +10,10 @@
     padding: 0;
     box-sizing: border-box;
     cursor: pointer;
+    transition: opacity .5s;
 }
 
 .profile__add-button:hover {
-    transition: opacity .5s;
-    opacity: .6;
 }
 
 @media (max-width: 767px) {

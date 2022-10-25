@@ -9,7 +9,6 @@
     padding: 0;
     box-sizing: border-box;
     cursor: pointer;
-    display: inline-block;
     grid-column: 2 / -1;
     grid-row: 1;
 }

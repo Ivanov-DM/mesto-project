@@ -30,4 +30,16 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__close-button/popup__close-button.css);
+
+@import url(../blocks/edit-profile-form/edite-profile-form.css);
+@import url(../blocks/edit-profile-form/__info/edit-button-form__info.css);
+@import url(../blocks/edit-profile-form/__heading/edit-profile-form__heading.css);
+@import url(../blocks/edit-profile-form/__input-field/edit-profile-form__input-field.css);
+@import url(../blocks/edit-profile-form/__submit-button/edit-profile-form__submit-button.css);
+
+
 

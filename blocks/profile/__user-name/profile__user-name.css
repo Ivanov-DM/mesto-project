@@ -3,7 +3,6 @@
     font-weight: 500;
     line-height: 48px;
     margin: 0 0 7px 0;
-    display: inline-block;
     grid-column: 1 / 2;
 }
 
@@ -11,13 +10,6 @@
     .profile__user-name {
         grid-column: 2/3;
         text-align: center;
-    }
-}
-
-
-
-@media (max-width: 767px) {
-    .profile__user-name {
         font-size: 27px;
         line-height: 33px;
     }

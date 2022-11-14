@@ -33,73 +33,20 @@
             ></button>
         </section>
 
-        <section class="elements page__elements" aria-label="Блок фотографий">
-            <article class="element">
-                <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__image">
-                <footer class="element__footer">
-                    <h2 class="element__title">Карачаевск</h2>
-                    <button
-                            class="element__like-button"
-                            type="button"
-                            aria-label="Поставить лайк"
-                    ></button>
-                </footer>
-            </article>
-            <article class="element">
-                <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-                <footer class="element__footer">
-                    <h2 class="element__title">Гора Эльбрус</h2>
-                    <button
-                            class="element__like-button"
-                            type="button"
-                            aria-label="Поставить лайк"
-                    ></button>
-                </footer>
-            </article>
-            <article class="element">
-                <img src="./images/dombay.jpg" alt="Домбай" class="element__image">
-                <footer class="element__footer">
-                    <h2 class="element__title">Домбай</h2>
-                    <button
-                            class="element__like-button"
-                            type="button"
-                            aria-label="Поставить лайк"
-                    ></button>
-                </footer>
-            </article>
-            <article class="element">
-                <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-                <footer class="element__footer">
-                    <h2 class="element__title">Гора Эльбрус</h2>
-                    <button
-                            class="element__like-button element__like-button_active"
-                            type="button"
-                            aria-label="Поставить лайк"
-                    ></button>
-                </footer>
-            </article>
-            <article class="element">
-                <img src="./images/dombay.jpg" alt="Домбай" class="element__image">
-                <footer class="element__footer">
-                    <h2 class="element__title">Домбай</h2>
-                    <button
-                            class="element__like-button"
-                            type="button"
-                            aria-label="Поставить лайк"
-                    ></button>
-                </footer>
-            </article>
-            <article class="element">
-                <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__image">
-                <footer class="element__footer">
-                    <h2 class="element__title">Карачаево-Черкессия</h2>
-                    <button
-                            class="element__like-button"
-                            type="button"
-                            aria-label="Поставить лайк"
-                    ></button>
-                </footer>
-            </article>
+        <section class="cards page__cards" aria-label="Блок фотографий">
+            <template id="card-template">
+                <article class="card">
+                    <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
+                    <footer class="card__footer">
+                        <h2 class="card__title">Карачаевск</h2>
+                        <button
+                                class="card__like-button"
+                                type="button"
+                                aria-label="Поставить лайк"
+                        ></button>
+                    </footer>
+                </article>
+            </template>
         </section>
     </main>
 

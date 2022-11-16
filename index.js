@@ -34,8 +34,11 @@ const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 
 const editProfileForm = document.forms['edit-profile-form'];
+const addCardForm = document.forms['add-card-form'];
 const userNameFormField = editProfileForm.elements.userName;
 const userAboutFormField = editProfileForm.elements.userAbout;
+const placeTitleFormField = addCardForm.elements.placeTitle;
+const placeLinkFormField = addCardForm.elements.placeLink;
 
 const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card-template').content;
@@ -102,4 +105,11 @@ profileAddButton.addEventListener('click', function () {
 });
 
 editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
+
+addCardForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const newCard = createCard(placeLinkFormField.value, placeTitleFormField.value);
+    cards.prepend(newCard);
+    closePopup(popupAddCard);
+})
 

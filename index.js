@@ -51,13 +51,6 @@ function closePopup(popupEl) {
     popupEl.classList.remove('popup_opened');
 }
 
-function editProfileFormSubmitHandler(event) {
-    event.preventDefault();
-    profileUserName.textContent = userNameFormField.value;
-    profileUserAbout.textContent = userAboutFormField.value;
-    closePopup(popupProfile);
-}
-
 function createCard(src, title) {
     const card = cardTemplate.querySelector('.card').cloneNode(true);
     const cardImage = card.querySelector('.card__image');
@@ -104,7 +97,12 @@ profileAddButton.addEventListener('click', function () {
     openPopup(popupAddCard);
 });
 
-editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
+editProfileForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    profileUserName.textContent = userNameFormField.value;
+    profileUserAbout.textContent = userAboutFormField.value;
+    closePopup(popupProfile);
+});
 
 addCardForm.addEventListener('submit', function(event) {
     event.preventDefault();

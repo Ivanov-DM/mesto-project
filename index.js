@@ -32,6 +32,7 @@ const profileAddButton = document.querySelector('.profile__add-button');
 
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
+const popupImage = document.querySelector('.popup_type_image');
 
 const editProfileForm = document.forms['edit-profile-form'];
 const addCardForm = document.forms['add-card-form'];
@@ -62,11 +63,21 @@ function createCard(src, title) {
     cardImage.alt = title;
     cardTitle.textContent = title;
 
+    cardImage.addEventListener('click', function(event) {
+        const popupImageElement = popupImage.querySelector('.card__image_type_popup');
+        const popupImageTitle = popupImage.querySelector('.card__title');
+
+        popupImageElement.src = event.target.src;
+        popupImageElement.alt = event.target.alt;
+        popupImageTitle.textContent = event.target.alt;
+        openPopup(popupImage);
+    });
+
     cardLikeButton.addEventListener('click', function(event) {
         event.target.classList.toggle('card__like-button_active');
     });
 
-    cardDeleteButton.addEventListener('click', function (event) {
+    cardDeleteButton.addEventListener('click', function(event) {
         event.target.closest('.card').remove();
     });
 
@@ -83,13 +94,15 @@ function addPopupCloseButtonListeners () {
     document.querySelectorAll('.popup__close-button').forEach(el => {
         if (el.closest('.popup_type_profile')) {
             el.addEventListener('click', function() {
-                console.log(el.closest('.popup_type_profile'));
                 closePopup(popupProfile);
             });
         } else if (el.closest('.popup_type_add-card')) {
             el.addEventListener('click', function() {
-                console.log(el.closest('.popup_type_add-card'));
                 closePopup(popupAddCard);
+            });
+        } else if (el.closest('.popup_type_image')) {
+            el.addEventListener('click', function() {
+                closePopup(popupImage);
             });
         }
     });
@@ -121,5 +134,5 @@ addCardForm.addEventListener('submit', function(event) {
     const newCard = createCard(placeLinkFormField.value, placeTitleFormField.value);
     cards.prepend(newCard);
     closePopup(popupAddCard);
-})
+});
 

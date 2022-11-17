@@ -1,0 +1,5 @@
+.card__image_type_popup {
+    max-width: 75vw;
+    max-height: 75vh;
+    aspect-ratio: auto;
+}

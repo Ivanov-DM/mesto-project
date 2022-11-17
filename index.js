@@ -56,7 +56,7 @@ function createCard(src, title) {
     const cardImage = card.querySelector('.card__image');
     const cardTitle = card.querySelector('.card__title');
     cardImage.src = src;
-    card.alt = title;
+    cardImage.alt = title;
     cardTitle.textContent = title;
     return card
 }

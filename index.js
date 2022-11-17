@@ -55,9 +55,14 @@ function createCard(src, title) {
     const card = cardTemplate.querySelector('.card').cloneNode(true);
     const cardImage = card.querySelector('.card__image');
     const cardTitle = card.querySelector('.card__title');
+    const cardLikeButton = card.querySelector('.card__like-button');
+
     cardImage.src = src;
     cardImage.alt = title;
     cardTitle.textContent = title;
+    cardLikeButton.addEventListener('click', function(event) {
+        event.target.classList.toggle('card__like-button_active');
+    })
     return card
 }
 

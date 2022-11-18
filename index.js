@@ -73,6 +73,8 @@ function addPopupCloseButtonListeners() {
             });
         } else if (el.closest('.popup_type_add-card')) {
             el.addEventListener('click', function () {
+                placeTitleFormField.value = '';
+                placeLinkFormField.value = '';
                 closePopup(popupAddCard);
             });
         } else if (el.closest('.popup_type_image')) {
@@ -108,6 +110,8 @@ addCardForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const newCard = createCard(placeLinkFormField.value, placeTitleFormField.value);
     cards.prepend(newCard);
+    placeTitleFormField.value = '';
+    placeLinkFormField.value = '';
     closePopup(popupAddCard);
 });
 

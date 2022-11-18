@@ -7,6 +7,11 @@ const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupImage = document.querySelector('.popup_type_image');
 
+const popupCloseButtons = document.querySelectorAll('.popup__close-button');
+
+const popupImageElement = popupImage.querySelector('.card__image_type_popup');
+const popupImageTitle = popupImage.querySelector('.card__title_type_popup');
+
 const editProfileForm = document.forms['edit-profile-form'];
 const addCardForm = document.forms['add-card-form'];
 const userNameFormField = editProfileForm.elements.userName;
@@ -37,9 +42,6 @@ function createCard(src, title) {
     cardTitle.textContent = title;
 
     cardImage.addEventListener('click', function (event) {
-        const popupImageElement = popupImage.querySelector('.card__image_type_popup');
-        const popupImageTitle = popupImage.querySelector('.card__title_type_popup');
-
         popupImageElement.src = event.target.src;
         popupImageElement.alt = event.target.alt;
         popupImageTitle.textContent = event.target.alt;
@@ -64,7 +66,7 @@ function renderInitialCards() {
 }
 
 function addPopupCloseButtonListeners() {
-    document.querySelectorAll('.popup__close-button').forEach(el => {
+    popupCloseButtons.forEach(el => {
         if (el.closest('.popup_type_profile')) {
             el.addEventListener('click', function () {
                 closePopup(popupProfile);

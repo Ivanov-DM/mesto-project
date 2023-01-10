@@ -6,8 +6,7 @@ const profileAddButton = document.querySelector('.profile__add-button');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupImage = document.querySelector('.popup_type_image');
-
-const popupCloseButtons = document.querySelectorAll('.popup__close-button');
+const popups = document.querySelectorAll('.popup');
 
 const popupImageElement = popupImage.querySelector('.card__image_type_popup');
 const popupImageTitle = popupImage.querySelector('.card__title_type_popup');
@@ -65,30 +64,6 @@ function renderInitialCards() {
     }
 }
 
-function addPopupCloseButtonListeners() {
-    popupCloseButtons.forEach(el => {
-        if (el.closest('.popup_type_profile')) {
-            el.addEventListener('click', function () {
-                closePopup(popupProfile);
-            });
-        } else if (el.closest('.popup_type_add-card')) {
-            el.addEventListener('click', function () {
-                placeTitleFormField.value = '';
-                placeLinkFormField.value = '';
-                closePopup(popupAddCard);
-            });
-        } else if (el.closest('.popup_type_image')) {
-            el.addEventListener('click', function () {
-                closePopup(popupImage);
-            });
-        }
-    });
-}
-
-renderInitialCards();
-
-addPopupCloseButtonListeners();
-
 profileEditButton.addEventListener('click', function () {
     userNameFormField.value = profileUserName.textContent;
     userAboutFormField.value = profileUserAbout.textContent;
@@ -114,4 +89,26 @@ addCardForm.addEventListener('submit', function (event) {
     placeLinkFormField.value = '';
     closePopup(popupAddCard);
 });
+
+document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+        popups.forEach(popupEl => {
+            if (popupEl.classList.contains('popup_opened')) {
+                closePopup(popupEl);
+            }
+        })
+    }
+});
+
+popups.forEach(popupEl => popupEl.addEventListener('mousedown', function (evt) {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
+        if (popupEl.classList.contains('popup_type_add-card')) {
+            placeTitleFormField.value = '';
+            placeLinkFormField.value = '';
+        }
+        closePopup(popupEl);
+    }
+}));
+
+renderInitialCards();
 

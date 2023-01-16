@@ -62,23 +62,39 @@
     <div class="popup popup_type_profile">
         <div class="popup__container">
             <button class="popup__close-button" type="button"></button>
-            <form action="#" method="post" name="edit-profile-form" class="form">
+            <form action="#" method="post" name="edit-profile-form" class="form" novalidate>
                 <h2 class="form__heading">Редактировать профиль</h2>
                 <fieldset class="form__info">
-                    <input
-                            type="text"
-                            name="userName"
-                            placeholder="Введите ваше имя"
-                            required
-                            class="form__input-field"
-                    >
-                    <input
-                            type="text"
-                            name="userAbout"
-                            placeholder="Немного о себе"
-                            required
-                            class="form__input-field"
-                    >
+                    <label for="name-input" class="form__field">
+                        <input
+                                type="text"
+                                name="userName"
+                                placeholder="Введите ваше имя"
+                                required
+                                class="form__input"
+                                id="name-input"
+                                minlength="2"
+                                maxlength="40"
+                                pattern="^[a-zA-Zа-яА-Я\s-]+$"
+                                data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                        >
+                        <span class="name-input-error form__input-error"></span>
+                    </label>
+                    <label for="about-input" class="form__field">
+                        <input
+                                type="text"
+                                name="userAbout"
+                                placeholder="Немного о себе"
+                                required
+                                class="form__input"
+                                id="about-input"
+                                minlength="2"
+                                maxlength="200"
+                                pattern="^[a-zA-Zа-яА-Я\s-]+$"
+                                data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                        >
+                        <span class="about-input-error form__input-error"></span>
+                    </label>
                 </fieldset>
                 <button type="submit" class="form__submit-button">Сохранить</button>
             </form>
@@ -91,20 +107,32 @@
             <form action="#" method="post" name="add-card-form" class="form">
                 <h2 class="form__heading">Новое место</h2>
                 <fieldset class="form__info">
-                    <input
-                            type="text"
-                            name="placeTitle"
-                            placeholder="Название"
-                            required
-                            class="form__input-field"
-                    >
-                    <input
-                            type="text"
-                            name="placeLink"
-                            placeholder="Ссылка на картинку"
-                            required
-                            class="form__input-field"
-                    >
+                    <label for="title-input" class="form__field">
+                        <input
+                                type="text"
+                                name="placeTitle"
+                                placeholder="Название"
+                                required
+                                class="form__input"
+                                id="title-input"
+                                minlength="2"
+                                maxlength="30"
+                                pattern="^[a-zA-Zа-яА-Я\s-]+$"
+                                data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                        >
+                        <span class="title-input-error form__input-error"></span>
+                    </label>
+                    <label for="link-input" class="form__field">
+                        <input
+                                type="url"
+                                name="placeLink"
+                                placeholder="Ссылка на картинку"
+                                required
+                                class="form__input"
+                                id="link-input"
+                        >
+                        <span class="link-input-error form__input-error"></span>
+                    </label>
                 </fieldset>
                 <button type="submit" class="form__submit-button">Сохранить</button>
             </form>

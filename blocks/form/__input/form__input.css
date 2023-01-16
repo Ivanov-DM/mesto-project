@@ -1,4 +1,4 @@
-.form__input-field {
+.form__input {
     font-family: inherit;
     font-size: 14px;
     font-weight: 400;
@@ -8,7 +8,7 @@
     padding-bottom: 8px;
 }
 
-.form__input-field:focus {
+.form__input:focus {
     outline: none;
     border-bottom: 1px solid #000000;
 }

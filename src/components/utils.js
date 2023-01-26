@@ -11,3 +11,11 @@ export const showInputError = (formElement, inputElement, errorMessage, options)
     errorElement.textContent = errorMessage;
     errorElement.classList.add(options.errorClass);
 }
+
+export function openPopup(popupEl) {
+    popupEl.classList.add('popup_opened');
+}
+
+export function closePopup(popupEl) {
+    popupEl.classList.remove('popup_opened');
+}

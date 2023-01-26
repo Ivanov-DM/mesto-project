@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
 
@@ -16,7 +15,7 @@
 
     <main class="main">
         <section class="profile page__profile">
-            <img src="images/avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
+            <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
             <div class="profile__profile-info">
                 <h1 class="profile__user-name">Жак-Ив Кусто</h1>
                 <p class="profile__user-about">Исследователь океана</p>
@@ -36,7 +35,7 @@
         <section class="cards page__cards" aria-label="Блок фотографий">
             <template id="card-template">
                 <article class="card">
-                    <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
+                    <img src="images/karachaevsk.jpg" alt="Карачаевск" class="card__image">
                     <footer class="card__footer">
                         <h2 class="card__title">Карачаевск</h2>
                         <button
@@ -149,7 +148,5 @@
 
 </div>
 
-<script src="src/constants.js"></script>
-<script src="src/index.js"></script>
 </body>
 </html>

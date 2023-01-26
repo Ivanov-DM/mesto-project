@@ -1,3 +1,8 @@
+import {initialCards} from "../constants";
+import {enableValidation} from "./validate";
+import {hideInputError} from "./utils";
+import '../pages/index.css';
+
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileUserName = document.querySelector('.profile__user-name');
 const profileUserAbout = document.querySelector('.profile__user-about');
@@ -21,73 +26,6 @@ const placeLinkFormField = addCardForm.elements.placeLink;
 const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card-template').content;
 
-const showInputError = (formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('form__input-field_type_error');
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add('form__input-error_active');
-}
-
-const hideInputError = (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('form__input-field_type_error');
-    errorElement.classList.remove('form__input-error_active');
-    errorElement.textContent = '';
-}
-
-const isValid = (formElement, inputElement) => {
-    if (inputElement.validity.patternMismatch) {
-        inputElement.setCustomValidity(inputElement.dataset.errorMessage);
-    } else {
-        inputElement.setCustomValidity('');
-    }
-    if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);
-    } else {
-        hideInputError(formElement, inputElement);
-    }
-}
-
-const hasInvalidInput = inputList => {
-    return inputList.some(inputElement => {
-        return !inputElement.validity.valid
-    })
-}
-
-const toggleButtonState = (inputList, buttonElement) => {
-    if (hasInvalidInput(inputList)) {
-        buttonElement.disabled = true;
-        buttonElement.classList.add('form__submit-button_inactive');
-    } else {
-        buttonElement.disabled = false;
-        buttonElement.classList.remove('form__submit-button_inactive');
-    }
-}
-
-const setEventListeners = formElement => {
-    const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-    const buttonElement = formElement.querySelector('.form__submit-button');
-
-    toggleButtonState(inputList, buttonElement);
-
-    inputList.forEach(inputElement => {
-        inputElement.addEventListener('input', () => {
-            isValid(formElement, inputElement);
-            toggleButtonState(inputList, buttonElement);
-        });
-    });
-}
-
-const enableValidation = () => {
-    const formList = document.querySelectorAll('.form');
-    formList.forEach(formElement => {
-        formElement.addEventListener('submit', evt => {
-            evt.preventDefault();
-        });
-        setEventListeners(formElement);
-    });
-}
-
 function openPopup(popupEl) {
     popupEl.classList.add('popup_opened');
 }
@@ -108,6 +46,7 @@ function createCard(src, title) {
     cardTitle.textContent = title;
 
     cardImage.addEventListener('click', function (event) {
+        setEscPopupListener();
         popupImageElement.src = event.target.src;
         popupImageElement.alt = event.target.alt;
         popupImageTitle.textContent = event.target.alt;
@@ -132,12 +71,14 @@ function renderInitialCards() {
 }
 
 profileEditButton.addEventListener('click', function () {
+    setEscPopupListener();
     userNameFormField.value = profileUserName.textContent;
     userAboutFormField.value = profileUserAbout.textContent;
     openPopup(popupProfile);
 });
 
 profileAddButton.addEventListener('click', function () {
+    setEscPopupListener();
     openPopup(popupAddCard);
 });
 
@@ -157,15 +98,24 @@ addCardForm.addEventListener('submit', function (event) {
     closePopup(popupAddCard);
 });
 
-document.addEventListener('keydown', function (evt) {
+function setEscPopupListener() {
+    document.addEventListener('keydown', escPopupHandler);
+}
+
+function deleteEscPopupListener() {
+    document.removeEventListener('keydown', escPopupHandler);
+}
+
+function escPopupHandler(evt) {
     if (evt.key === 'Escape') {
         popups.forEach(popupEl => {
             if (popupEl.classList.contains('popup_opened')) {
                 closePopup(popupEl);
             }
-        })
+        });
+        deleteEscPopupListener();
     }
-});
+}
 
 popups.forEach(popupEl => popupEl.addEventListener('mousedown', function (evt) {
     if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
@@ -176,12 +126,22 @@ popups.forEach(popupEl => popupEl.addEventListener('mousedown', function (evt) {
         const formElement = popupEl.querySelector('.form');
         if (formElement) {
             const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-            inputList.forEach(inputElement => hideInputError(formElement, inputElement));
+            inputList.forEach(inputElement => hideInputError(formElement, inputElement, {
+                inputErrorClass: 'form__input_type_error',
+                errorClass: 'form__input-error_active'
+            }));
         }
         closePopup(popupEl);
     }
 }));
 
-enableValidation();
+enableValidation({
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit-button',
+    inactiveButtonClass: 'form__submit-button_inactive',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
+});
 renderInitialCards();
 

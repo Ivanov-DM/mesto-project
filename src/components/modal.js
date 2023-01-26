@@ -24,8 +24,7 @@ export function setPopupCloseListeners(popupList) {
     popupList.forEach(popupEl => popupEl.addEventListener('mousedown', function (evt) {
         if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
             if (popupEl.classList.contains('popup_type_add-card')) {
-                popupEl.querySelector('[name=placeTitle]').value = '';
-                popupEl.querySelector('[name=placeLink]').value = '';
+                popupEl.querySelector('.form').reset();
             }
             const formElement = popupEl.querySelector('.form');
             if (formElement) {
@@ -35,6 +34,9 @@ export function setPopupCloseListeners(popupList) {
                     errorClass: 'form__input-error_active'
                 }));
             }
+            const buttonElement = formElement.querySelector('.form__submit-button');
+            buttonElement.disabled = true;
+            buttonElement.classList.add('form__submit-button_inactive');
             closePopup(popupEl);
         }
     }));

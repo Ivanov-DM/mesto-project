@@ -68,7 +68,7 @@ editProfileForm.addEventListener('submit', function (event) {
 
 addCardForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    const newCard = createCard(placeLinkFormField.value, placeTitleFormField.value);
+    const newCard = createCard(placeLinkFormField.value, placeTitleFormField.value, cardTemplate);
     setCardImageListener(newCard);
     cards.prepend(newCard);
     placeTitleFormField.value = '';

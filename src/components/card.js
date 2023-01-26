@@ -9,14 +9,6 @@ export function createCard(src, title, cardTemplate) {
     cardImage.alt = title;
     cardTitle.textContent = title;
 
-    // cardImage.addEventListener('click', function (event) {
-    //     setEscPopupListener();
-    //     popupImageElement.src = event.target.src;
-    //     popupImageElement.alt = event.target.alt;
-    //     popupImageTitle.textContent = event.target.alt;
-    //     openPopup(popupImage);
-    // });
-
     cardLikeButton.addEventListener('click', function (event) {
         event.target.classList.toggle('card__like-button_active');
     });

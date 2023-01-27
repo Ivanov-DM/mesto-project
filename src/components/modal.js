@@ -1,4 +1,4 @@
-import {closePopup, hideInputError} from "./utils";
+import {closePopup, hideInputError, disablePopupButtonSubmit} from "./utils";
 
 export function setEscPopupListener(popupList) {
 
@@ -33,10 +33,9 @@ export function setPopupCloseListeners(popupList) {
                     inputErrorClass: 'form__input_type_error',
                     errorClass: 'form__input-error_active'
                 }));
+                const buttonElement = formElement.querySelector('.form__submit-button');
+                disablePopupButtonSubmit(buttonElement);
             }
-            const buttonElement = formElement.querySelector('.form__submit-button');
-            buttonElement.disabled = true;
-            buttonElement.classList.add('form__submit-button_inactive');
             closePopup(popupEl);
         }
     }));

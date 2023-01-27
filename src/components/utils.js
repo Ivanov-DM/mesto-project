@@ -19,3 +19,8 @@ export function openPopup(popupEl) {
 export function closePopup(popupEl) {
     popupEl.classList.remove('popup_opened');
 }
+
+export function disablePopupButtonSubmit(buttonElement) {
+    buttonElement.disabled = true;
+    buttonElement.classList.add('form__submit-button_inactive');
+}

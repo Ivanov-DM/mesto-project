@@ -1,7 +1,7 @@
 import {initialCards} from "../constants";
 import {enableValidation} from "./validate";
 import {setPopupCloseListeners, setEscPopupListener} from "./modal";
-import {closePopup, openPopup} from "./utils";
+import {closePopup, openPopup, disablePopupButtonSubmit} from "./utils";
 import {createCard} from "./card";
 import '../pages/index.css';
 
@@ -61,8 +61,14 @@ profileAddButton.addEventListener('click', function () {
 
 editProfileForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    profileUserName.textContent = userNameFormField.value;
-    profileUserAbout.textContent = userAboutFormField.value;
+    const buttonElement = popupProfile.querySelector('.form__submit-button');
+    if (profileUserName.textContent === userNameFormField.value && profileUserAbout.textContent === userAboutFormField.value) {
+        disablePopupButtonSubmit(buttonElement);
+    } else {
+        profileUserName.textContent = userNameFormField.value;
+        profileUserAbout.textContent = userAboutFormField.value;
+    }
+    disablePopupButtonSubmit(buttonElement);
     closePopup(popupProfile);
 });
 
@@ -73,6 +79,8 @@ addCardForm.addEventListener('submit', function (event) {
     cards.prepend(newCard);
     placeTitleFormField.value = '';
     placeLinkFormField.value = '';
+    const buttonElement = popupAddCard.querySelector('.form__submit-button');
+    disablePopupButtonSubmit(buttonElement);
     closePopup(popupAddCard);
 });
 

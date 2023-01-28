@@ -1,20 +1,33 @@
-export function createCard(src, title, cardTemplate) {
-    const card = cardTemplate.querySelector('.card').cloneNode(true);
-    const cardImage = card.querySelector('.card__image');
-    const cardTitle = card.querySelector('.card__title');
-    const cardLikeButton = card.querySelector('.card__like-button');
-    const cardDeleteButton = card.querySelector('.card__delete-button');
+import {openPopup} from "./utils";
+
+export function createCard(src, title, cardTemplate, popupImage, options) {
+    const card = cardTemplate.querySelector(options.cardSelector).cloneNode(true);
+    const cardImage = card.querySelector(options.imageSelector);
+    const cardTitle = card.querySelector(options.titleSelector);
+    const cardLikeButton = card.querySelector(options.likeButtonSelector);
+    const cardDeleteButton = card.querySelector(options.deleteButtonSelector);
+
+    function handleCardClick(src, title) {
+        const popupImageElement = popupImage.querySelector(options.imagePopupSelector);
+        const popupImageTitle = popupImage.querySelector(options.titlePopupSelector);
+        popupImageElement.src = src;
+        popupImageElement.alt = title;
+        popupImageTitle.textContent = title;
+        openPopup(popupImage);
+    }
 
     cardImage.src = src;
     cardImage.alt = title;
     cardTitle.textContent = title;
 
+    cardImage.addEventListener('click', () => handleCardClick(src, title, popupImage));
+
     cardLikeButton.addEventListener('click', function (event) {
-        event.target.classList.toggle('card__like-button_active');
+        event.target.classList.toggle(options.likeButtonActiveClass);
     });
 
     cardDeleteButton.addEventListener('click', function (event) {
-        event.target.closest('.card').remove();
+        event.target.closest(options.cardSelector).remove();
     });
 
     return card

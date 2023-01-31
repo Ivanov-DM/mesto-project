@@ -9,14 +9,14 @@ export function createCard(cardData, cardTemplate, popupImage, options) {
     const cardLikeButton = card.querySelector(options.likeButtonSelector);
     const cardDeleteButton = card.querySelector(options.deleteButtonSelector);
     const cardLikeCount = card.querySelector(options.likeCountSelector);
+    const popupImageElement = popupImage.querySelector(options.imagePopupSelector);
+    const popupImageTitle = popupImage.querySelector(options.titlePopupSelector);
 
     function isLiked(ownerId, likes) {
         return likes.some(likedUser => likedUser._id === globeVariables.ownerId)
     }
 
     function handleCardClick(src, title) {
-        const popupImageElement = popupImage.querySelector(options.imagePopupSelector);
-        const popupImageTitle = popupImage.querySelector(options.titlePopupSelector);
         popupImageElement.src = src;
         popupImageElement.alt = title;
         popupImageTitle.textContent = title;

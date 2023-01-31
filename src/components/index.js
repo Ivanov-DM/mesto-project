@@ -72,11 +72,10 @@ function renderUserData(userName, userAbout, avatarLink) {
 }
 
 function renderSubmitButtonLoading(buttonEl, isLoading) {
-    const currentButtonText = buttonEl.textContent;
     if (isLoading) {
         buttonEl.textContent = 'Сохранение...';
     } else {
-        buttonEl.textContent = currentButtonText;
+        buttonEl.textContent = 'Сохранить';
     }
 }
 
@@ -100,38 +99,33 @@ profileAvatarOverlay.addEventListener('click', function () {
 
 editProfileForm.addEventListener('submit', function (event) {
     event.preventDefault();
-
-    const submitButton = event.target.querySelector(validationOptions.submitButtonSelector);
-    renderSubmitButtonLoading(submitButton, true);
-
+    renderSubmitButtonLoading(event.submitter, true);
     editUserData(userNameFormField.value, userAboutFormField.value)
-        .then(userData => renderUserData(userData.name, userData.about, userData.avatar))
+        .then(userData => {
+            renderUserData(userData.name, userData.about, userData.avatar);
+            closePopup(popupProfile);
+            event.target.reset();
+        })
         .catch(err => console.log(err))
-        .finally(() => renderSubmitButtonLoading(submitButton, false));
-    closePopup(popupProfile);
-    event.target.reset();
+        .finally(() => renderSubmitButtonLoading(event.submitter, false));
 });
 
 changeAvatarForm.addEventListener('submit', function (event) {
     event.preventDefault();
-
-    const submitButton = event.target.querySelector(validationOptions.submitButtonSelector);
-    renderSubmitButtonLoading(submitButton, true);
-
+    renderSubmitButtonLoading(event.submitter, true);
     changeUserAvatar(avatarLinkFormField.value)
-        .then(userData => renderUserData(userData.name, userData.about, userData.avatar))
+        .then(userData => {
+            renderUserData(userData.name, userData.about, userData.avatar);
+            closePopup(popupChangeAvatar);
+            event.target.reset();
+        })
         .catch(err => console.log(err))
-        .finally(() => renderSubmitButtonLoading(submitButton, false));
-    closePopup(popupChangeAvatar);
-    event.target.reset();
-})
+        .finally(() => renderSubmitButtonLoading(event.submitter, false));
+});
 
 addCardForm.addEventListener('submit', function (event) {
     event.preventDefault();
-
-    const submitButton = event.target.querySelector(validationOptions.submitButtonSelector);
-    renderSubmitButtonLoading(submitButton, true);
-
+    renderSubmitButtonLoading(event.submitter, true);
     addNewCard(placeTitleFormField.value, placeLinkFormField.value)
         .then(card => {
             const newCard = createCard(
@@ -145,7 +139,7 @@ addCardForm.addEventListener('submit', function (event) {
             event.target.reset();
         })
         .catch(err => console.log(err))
-        .finally(() => renderSubmitButtonLoading(submitButton, false));
+        .finally(() => renderSubmitButtonLoading(event.submitter, false));
 });
 
 setPopupCloseListeners(popupList);
@@ -160,5 +154,3 @@ Promise.all([getUserData(), getInitialCards()])
         renderInitialCards(cards);
     })
     .catch(err => console.log(err));
-
-

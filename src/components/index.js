@@ -1,12 +1,15 @@
-import {initialCards} from "../constants";
 import {enableValidation, hideInputError} from "./validate";
 import {setPopupCloseListeners} from "./modal";
 import {closePopup, openPopup} from "./utils";
 import {createCard} from "./card";
 import '../pages/index.css';
+import {addNewCard, changeUserAvatar, editUserData, getInitialCards, getUserData} from "./api";
+import {globeVariables} from "../constants";
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
+const profileAvatar = document.querySelector('.profile__avatar');
+const profileAvatarOverlay = document.querySelector('.profile__avatar-overlay');
 
 const profileUserName = document.querySelector('.profile__user-name');
 const profileUserAbout = document.querySelector('.profile__user-about');
@@ -15,6 +18,7 @@ const popupList = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupImage = document.querySelector('.popup_type_image');
+const popupChangeAvatar = document.querySelector('.popup_type_change-avatar');
 
 const editProfileForm = document.forms['edit-profile-form'];
 const userNameFormField = editProfileForm.elements.userName;
@@ -22,6 +26,8 @@ const userAboutFormField = editProfileForm.elements.userAbout;
 const addCardForm = document.forms['add-card-form'];
 const placeTitleFormField = addCardForm.elements.placeTitle;
 const placeLinkFormField = addCardForm.elements.placeLink;
+const changeAvatarForm = document.forms['change-avatar-form'];
+const avatarLinkFormField = changeAvatarForm.elements.avatarLink;
 
 const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card-template').content;
@@ -34,7 +40,8 @@ const cardOptions = {
     titlePopupSelector: '.card__title_type_popup',
     likeButtonSelector: '.card__like-button',
     deleteButtonSelector: '.card__delete-button',
-    likeButtonActiveClass: 'card__like-button_active'
+    likeButtonActiveClass: 'card__like-button_active',
+    likeCountSelector: '.card__like-count'
 }
 
 const validationOptions = {
@@ -46,16 +53,30 @@ const validationOptions = {
     errorClass: 'form__input-error_active'
 };
 
-function renderInitialCards() {
-    for (let i = 0; i < initialCards.length; i++) {
+function renderInitialCards(cardsList) {
+    for (let i = 0; i < cardsList.length; i++) {
         const card = createCard(
-            initialCards[i].link,
-            initialCards[i].name,
+            cardsList[i],
             cardTemplate,
             popupImage,
             cardOptions
         );
         cards.append(card);
+    }
+}
+
+function renderUserData(userName, userAbout, avatarLink) {
+    profileUserName.textContent = userName;
+    profileUserAbout.textContent = userAbout;
+    profileAvatar.src = avatarLink;
+}
+
+function renderSubmitButtonLoading(buttonEl, isLoading) {
+    const currentButtonText = buttonEl.textContent;
+    if (isLoading) {
+        buttonEl.textContent = 'Сохранение...';
+    } else {
+        buttonEl.textContent = currentButtonText;
     }
 }
 
@@ -73,30 +94,71 @@ profileAddButton.addEventListener('click', function () {
     openPopup(popupAddCard);
 });
 
+profileAvatarOverlay.addEventListener('click', function () {
+    openPopup(popupChangeAvatar);
+})
+
 editProfileForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    profileUserName.textContent = userNameFormField.value;
-    profileUserAbout.textContent = userAboutFormField.value;
+
+    const submitButton = event.target.querySelector(validationOptions.submitButtonSelector);
+    renderSubmitButtonLoading(submitButton, true);
+
+    editUserData(userNameFormField.value, userAboutFormField.value)
+        .then(userData => renderUserData(userData.name, userData.about, userData.avatar))
+        .catch(err => console.log(err))
+        .finally(() => renderSubmitButtonLoading(submitButton, false));
     closePopup(popupProfile);
     event.target.reset();
 });
 
+changeAvatarForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const submitButton = event.target.querySelector(validationOptions.submitButtonSelector);
+    renderSubmitButtonLoading(submitButton, true);
+
+    changeUserAvatar(avatarLinkFormField.value)
+        .then(userData => renderUserData(userData.name, userData.about, userData.avatar))
+        .catch(err => console.log(err))
+        .finally(() => renderSubmitButtonLoading(submitButton, false));
+    closePopup(popupChangeAvatar);
+    event.target.reset();
+})
+
 addCardForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    const newCard = createCard(
-        placeLinkFormField.value,
-        placeTitleFormField.value,
-        cardTemplate,
-        popupImage,
-        cardOptions
-    );
-    cards.prepend(newCard);
-    closePopup(popupAddCard);
-    event.target.reset();
+
+    const submitButton = event.target.querySelector(validationOptions.submitButtonSelector);
+    renderSubmitButtonLoading(submitButton, true);
+
+    addNewCard(placeTitleFormField.value, placeLinkFormField.value)
+        .then(card => {
+            const newCard = createCard(
+                card,
+                cardTemplate,
+                popupImage,
+                cardOptions
+            );
+            cards.prepend(newCard);
+            closePopup(popupAddCard);
+            event.target.reset();
+        })
+        .catch(err => console.log(err))
+        .finally(() => renderSubmitButtonLoading(submitButton, false));
 });
 
 setPopupCloseListeners(popupList);
 
 enableValidation(validationOptions);
 
-renderInitialCards();
+Promise.all([getUserData(), getInitialCards()])
+    .then(initialData => {
+        const [userData, cards] = initialData;
+        globeVariables.ownerId = userData._id;
+        renderUserData(userData.name, userData.about, userData.avatar);
+        renderInitialCards(cards);
+    })
+    .catch(err => console.log(err));
+
+
